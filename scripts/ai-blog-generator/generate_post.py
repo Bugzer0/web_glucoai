@@ -365,7 +365,7 @@ def generate_image(client, prompt: str, output_path: Path, aspect_ratio: str = "
     sys.stdout.flush()
     try:
         response = retry_api_call(lambda: client.models.generate_content(
-            # model="gemini-3.1-flash-image-preview",
+            # model="gemini-3.1-flash-image",
             model="gemini-2.5-flash-image",
             contents=f"Generate an image: {prompt}",
             config=types.GenerateContentConfig(

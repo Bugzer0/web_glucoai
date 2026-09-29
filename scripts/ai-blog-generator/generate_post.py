@@ -169,7 +169,7 @@ def build_existing_posts_context(posts: list[dict]) -> str:
 def generate_topic(client, existing_context: str, skill_prompt: str) -> str:
     """Use AI to generate a unique blog topic about glucose/diabetes."""
     response = retry_api_call(lambda: client.models.generate_content(
-        model="gemini-flash-latest",
+        model="gemini-flash-lite-latest",
         contents=f"""Generate ONE new blog post topic for an English glucose/diabetes health blog.
 
 {existing_context}
@@ -237,7 +237,7 @@ Rules:
 def generate_metadata(client, topic: str, existing_context: str) -> dict:
     """Generate blog metadata as structured JSON."""
     response = retry_api_call(lambda: client.models.generate_content(
-        model="gemini-flash-latest",
+        model="gemini-flash-lite-latest",
         contents=f"Generate blog post metadata for the topic: {topic}",
         config=types.GenerateContentConfig(
             system_instruction=f"""Return ONLY a JSON object with blog post metadata.
@@ -300,7 +300,7 @@ Rules:
 def generate_content(client, topic: str, title: str, skill_prompt: str, existing_context: str) -> str:
     """Generate blog content as plain markdown."""
     response = retry_api_call(lambda: client.models.generate_content(
-        model="gemini-flash-latest",
+        model="gemini-flash-lite-latest",
         contents=f'Write a blog post titled "{title}" about: {topic}',
         config=types.GenerateContentConfig(
             system_instruction=f"""You are an English health blog writer specializing in glucose monitoring and diabetes management.
@@ -365,7 +365,7 @@ def generate_image(client, prompt: str, output_path: Path, aspect_ratio: str = "
     sys.stdout.flush()
     try:
         response = retry_api_call(lambda: client.models.generate_content(
-            model="gemini-3.1-flash-image",
+            model="gemini-3.1-flash-lite-image",
             # model="gemini-2.5-flash-image",
             contents=f"Generate an image: {prompt}",
             config=types.GenerateContentConfig(
